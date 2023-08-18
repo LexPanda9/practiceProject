@@ -12,6 +12,7 @@ class myfproject{
     private $database = "projectdb";
     
     private $user_table = "user";
+    private $admin_table = "myadmin";
 
 
 
@@ -197,8 +198,7 @@ class myfproject{
 
 
 
-    public function getUserDetails($value)
-    {
+    public function getUserDetails($value) {
         $select = $this->query("SELECT * FROM $this->user_table WHERE `email`='" . $_SESSION['logged_in'] . "' ");
         $row = mysqli_fetch_assoc($select);
         return $row[$value];
@@ -207,8 +207,96 @@ class myfproject{
 
 
 
+
+
+
+
+
+// ....................................ADMIN SPACE...........................................................
+
+
+
+
+    // public function adminRegister($fullname, $username, $email,  $password, $cpassword) {
+        
+    //         $date = $this->getDate();
+    //         $hashPassword = $this->hashpassword($password);
+    //         $checkUsername = $this->query("SELECT * FROM $this->admin WHERE `username`='" . $username . "' ");
+    //         $checkEmail = $this->query("SELECT * FROM $this->admin WHERE `email`='" . $email . "' ");
+    //         $checkPass = $this->validatePassword($password, $cpassword);
+    //         if ($checkPass) {
+    //             if (mysqli_num_rows($checkUsername) > 0) {
+    //                 return "Username Already in our database, pick another one";
+    //             } else {
+    //                 if(mysqli_num_rows( $checkEmail)> 0){
+    //                     return "Email Already in our database, pick another one";
+    //                 }else{
+    //                 if (strlen($password) > 8 && strlen($password) < 36) {
+    //                     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //                     $insert = $this->query("INSERT INTO $this->admin VALUE(null,'" . $fullname . "','" . $username . "','" . $email . "','" . $hashPassword . "','" . $date . "') ");
+    //                     if ($insert) {
+    //                         header("location: login-myadmin.php");
+    //                     } else {
+    //                         return "System error: please contact admin";
+    //                     }
+    //                     } else {
+    //                     return "Enter a valid email address";
+    //                 }
+    //                 } else {
+    //                     return "Password should be b/w 8 and 36 characters";
+    //                 }
+    //                 }
+    //             }
+    //         } else {
+    //             return "Passwords are not the same";
+    //         }
+    // }
+
+
+    public function adminLogin($user, $password) {
+            // check if the email and username are in our db
+            // check if the password is same as in our db
+            // create a login section
+            // remember to echo your error msg in the login.php
+
+            $checkAdmin = $this->query("SELECT * FROM $this->admin_table WHERE `email`= '" . $user . "'  ");
+
+            if (mysqli_num_rows($checkAdmin) > 0) {
+                $row = mysqli_fetch_assoc($checkAdmin);
+                $passwordDB = $row['password'];
+                //$passwordHash = $this->hashpassword($password);
+                $passwordHash = $password;
+                //if ($passwordHash == password_verify($password, $passwordDB)) {
+                if ($passwordHash == $passwordDB) {
+                    $_SESSION["admin_logged"] = $row['email'];
+                    header("location:index-admin.php");
+                } else {
+                    return "incorrect username/email or password2";
+                }
+            } else {
+                return "incorrect username/email or password1";
+            }
+    }
+
+    public function setAdminLogin() {
+
+      if (isset($_SESSION['admin_logged']) && !empty($_SESSION['admin_logged'])) {
+
+          $_SESSION['logged_admin'] = $_SESSION['admin_logged'];
+      }
+    }
+
+    public function checkAdminLogged() {
+      if (isset($_SESSION['logged_admin']) && !empty($_SESSION['logged_admin'])) {
+      } else {
+          header("location: login-myadmin.php");
+      }
+    }
+
+
 }
 
 $call = new myfproject();
 $call->setUserLogged();
+$call->setAdminLogin();
 ?>

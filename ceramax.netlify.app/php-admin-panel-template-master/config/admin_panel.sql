@@ -44,9 +44,9 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `full_name`, `email`, `mobile`, `address`, `password`, `status`, `created_at`) VALUES
-(10, 'Super Admin', 'superadmin@gmail.com', '1234567890', 'Noida', '0192023a7bbd73250516f069df18b500', 1, '2020-06-17 18:38:43.432266'),
-(11, 'Test admin', 'testadmin@gmail.com', '1234567890', 'New Delhi', '0192023a7bbd73250516f069df18b500', 1, '2020-06-17 18:39:14.874271'),
-(12, 'temp admin', 'tempadmin@gmail.com', '12', 'Noida', '0192023a7bbd73250516f069df18b500', 1, '2020-06-17 18:39:52.830541');
+(10, 'Super Admin', 'superadmin@gmail.com', '1234567890', 'Noida', 'alex2000', 1, '2020-06-17 18:38:43.432266'),
+(11, 'Test admin', 'testadmin@gmail.com', '1234567890', 'New Delhi', 'alex2000', 1, '2020-06-17 18:39:14.874271'),
+(12, 'temp admin', 'tempadmin@gmail.com', '12', 'Noida', 'alex2000', 1, '2020-06-17 18:39:52.830541');
 
 -- --------------------------------------------------------
 

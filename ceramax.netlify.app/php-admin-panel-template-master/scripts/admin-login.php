@@ -4,8 +4,7 @@ $call_login=$set_email=$emailErr=$passErr='';
   
  extract($_POST);
 
-if(isset($login))
-{
+if(isset($login)) {
    
    //input fields are Validated with regular expression
   
@@ -67,15 +66,13 @@ function login($db,$email,$password){
   if(mysqli_num_rows($run_email)>0)
   {
     // checking email and password
-    $check_user="SELECT email, password FROM admin_profile WHERE email='$email' AND password='$password'";
+    $check_user="SELECT * FROM admin_profile WHERE email='$email' AND password='$password'";
     $run_user= mysqli_query($db,$check_user);
-    if(mysqli_num_rows($run_user)>0)
-     {
+    if(mysqli_num_rows($run_user)>0) {
       session_start();
       $_SESSION['email']=$email;
       header("location:dashboard.php");
-     }else
-     {
+     } else {
       return "Your Password is wrong";
      }
 

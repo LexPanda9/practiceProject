@@ -1,4 +1,4 @@
-<br></br>
+<br>
 
 <div class="content-box">
 	<div class="row">
